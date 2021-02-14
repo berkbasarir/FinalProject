@@ -7,6 +7,10 @@ namespace Business.Abstract
 {
     public interface IProductService
     {
-        List<Product> GetAll();
+        List<Product> GetAll(); //tümünü getir
+        List<Product> GetAllByCategoryId(int id); //kategori id sine göre tümünü getir
+        List<Product> GetByUniyPrice(decimal min, decimal max); //fiyata göre getir min - max
+
+
     }
 }
