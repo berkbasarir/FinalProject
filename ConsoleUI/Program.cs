@@ -42,7 +42,7 @@ namespace ConsoleUI
             Console.WriteLine("------------------ALL------------------------");
 
 
-            foreach (var product in productManager.GetAll())
+            foreach (var product in productManager.GetAll().Data)
             {
                 Console.WriteLine(product.ProductName);
             }
@@ -51,7 +51,7 @@ namespace ConsoleUI
             Console.WriteLine("------------------CATEGORY ID = 2------------------------");
 
 
-            foreach (var product in productManager.GetAllByCategoryId(2))
+            foreach (var product in productManager.GetAllByCategoryId(2).Data)
             {
                 Console.WriteLine(product.ProductName);
             }
@@ -59,20 +59,38 @@ namespace ConsoleUI
 
             Console.WriteLine("------------------PRICE MIN = 40 MAX = 100------------------------");
 
+            var resultPrice = productManager.GetByUnitPrice(40, 100);
 
-            foreach (var product in productManager.GetByUniyPrice(40, 100))
+            if (resultPrice.Success == true)
             {
-                Console.WriteLine(product.ProductName);
+                foreach (var product in productManager.GetByUnitPrice(40, 100).Data)
+                {
+                    Console.WriteLine(product.ProductName);
+                }
+            }
+            else
+            {
+                Console.WriteLine(resultPrice.Message);
             }
 
 
-            Console.WriteLine("------------------ProductName + CategoryName------------------------");
+            Console.WriteLine("------------------ProductName + / + CategoryName------------------------");
 
+            var resultCategory = productManager.GetProductDetails();
 
-            foreach (var product in productManager.GetProductDetails())
+            if (resultCategory.Success == true)
             {
-                Console.WriteLine(product.ProductName + " / " + product.CategoryName);
+                foreach (var product in productManager.GetProductDetails().Data)
+                {
+                    Console.WriteLine(product.ProductName + " / " + product.CategoryName);
+                }
             }
+            else
+            {
+                Console.WriteLine(resultCategory.Message);
+            }
+
+            
         }
     }
 }
