@@ -41,20 +41,38 @@ namespace ConsoleUI
 
             Console.WriteLine("------------------ALL------------------------");
 
+            var resultAll = productManager.GetAll();
 
-            foreach (var product in productManager.GetAll().Data)
+            if (resultAll.Success == true)
             {
-                Console.WriteLine(product.ProductName);
+                foreach (var product in productManager.GetAll().Data)
+                {
+                    Console.WriteLine(product.ProductName);
+                }
             }
+            else
+            {
+                Console.WriteLine(resultAll.Message);
+            }
+
 
 
             Console.WriteLine("------------------CATEGORY ID = 2------------------------");
 
+            var resultCategoryID = productManager.GetAllByCategoryId(2);
 
-            foreach (var product in productManager.GetAllByCategoryId(2).Data)
+            if (resultCategoryID.Success == true)
             {
-                Console.WriteLine(product.ProductName);
+                foreach (var product in productManager.GetAllByCategoryId(2).Data)
+                {
+                    Console.WriteLine(product.ProductName);
+                }
             }
+            else
+            {
+                Console.WriteLine(resultCategoryID.Message);
+            }
+
 
 
             Console.WriteLine("------------------PRICE MIN = 40 MAX = 100------------------------");
@@ -76,9 +94,9 @@ namespace ConsoleUI
 
             Console.WriteLine("------------------ProductName + / + CategoryName------------------------");
 
-            var resultCategory = productManager.GetProductDetails();
+            var resultCategoryName = productManager.GetProductDetails();
 
-            if (resultCategory.Success == true)
+            if (resultCategoryName.Success == true)
             {
                 foreach (var product in productManager.GetProductDetails().Data)
                 {
@@ -87,10 +105,8 @@ namespace ConsoleUI
             }
             else
             {
-                Console.WriteLine(resultCategory.Message);
-            }
-
-            
+                Console.WriteLine(resultCategoryName.Message);
+            }        
         }
     }
 }
