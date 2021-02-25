@@ -14,4 +14,4 @@ namespace DataAccess.Abstract
 }
 
 
-//Coe Refactoring - kodun iyileştirilmesi
+//Code Refactoring - kodun iyileştirilmesi

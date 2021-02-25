@@ -59,9 +59,9 @@ namespace ConsoleUI
 
             Console.WriteLine("------------------CATEGORY ID = 2------------------------");
 
-            var resultCategoryID = productManager.GetAllByCategoryId(2);
+            var resultCategoryId = productManager.GetAllByCategoryId(2);
 
-            if (resultCategoryID.Success == true)
+            if (resultCategoryId.Success == true)
             {
                 foreach (var product in productManager.GetAllByCategoryId(2).Data)
                 {
@@ -70,7 +70,7 @@ namespace ConsoleUI
             }
             else
             {
-                Console.WriteLine(resultCategoryID.Message);
+                Console.WriteLine(resultCategoryId.Message);
             }
 
 
