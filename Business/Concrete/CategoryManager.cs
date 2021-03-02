@@ -4,6 +4,8 @@ using Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Business.Constants;
+using Core.Utilities.Results;
 
 namespace Business.Concrete
 {
@@ -16,16 +18,43 @@ namespace Business.Concrete
             _categoryDal = categoryDal;
         }
 
-        public List<Category> GetAll()
+
+        public IDataResult<List<Category>> GetAll()
         {
-            //İş kodları
-            return _categoryDal.GetAll();
+            if (DateTime.Now.Hour >= 1 && DateTime.Now.Hour <= 2)
+            {
+                return new ErrorDataResult<List<Category>>(Messages.MaintenanceTime);
+            }
+            return new SuccessDataResult<List<Category>>(_categoryDal.GetAll(), Messages.ProductListed);
         }
 
-        //Select * from categories where CategoryId = 3
-        public Category GetById(int categoryId)
+        public IDataResult<Category> GetById(int categoryId)
         {
-            return _categoryDal.Get(c => c.CategoryId == categoryId); 
+            return new SuccessDataResult<Category>(_categoryDal.Get(p => p.CategoryId == categoryId));
+        }
+
+        public IResult Add(Category category)
+        {
+            if (category.CategoryName.Length < 2)
+            {
+                //------------magic strings----------
+                return new ErrorResult(Messages.ProductNameInvalid);
+            }
+            //business codes
+            _categoryDal.Add(category);
+            return new SuccessResult(Messages.ProductAdded);
+        }
+
+        public IResult Update(Category category)
+        {
+            _categoryDal.Update(category);
+            return new SuccessResult(Messages.ProductAdded);
+        }
+
+        public IResult Delete(Category category)
+        {
+            _categoryDal.Delete(category);
+            return new SuccessResult(Messages.ProductAdded);
         }
     }
 }
