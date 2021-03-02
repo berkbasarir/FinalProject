@@ -2,6 +2,9 @@
 using DataAccess.Concrete.EntityFramework;
 using DataAccess.Concrete.InMemory;
 using System;
+using System.Collections.Generic;
+using Core.Utilities.Results;
+using Entities.Concrete;
 
 namespace ConsoleUI
 {
@@ -27,8 +30,9 @@ namespace ConsoleUI
 
             Console.WriteLine("------------------ALL------------------------");
 
+            var resultCategoryAll = categoryManager.GetAll();
 
-            foreach (var category in categoryManager.GetAll())
+            foreach (var category in categoryManager.GetAll().Data) 
             {
                 Console.WriteLine(category.CategoryName);
             }
