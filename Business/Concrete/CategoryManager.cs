@@ -21,10 +21,6 @@ namespace Business.Concrete
 
         public IDataResult<List<Category>> GetAll()
         {
-            if (DateTime.Now.Hour >= 1 && DateTime.Now.Hour <= 2)
-            {
-                return new ErrorDataResult<List<Category>>(Messages.MaintenanceTime);
-            }
             return new SuccessDataResult<List<Category>>(_categoryDal.GetAll(), Messages.ProductListed);
         }
 
