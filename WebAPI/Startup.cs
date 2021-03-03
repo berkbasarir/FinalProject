@@ -31,7 +31,9 @@ namespace WebAPI
         {
             //Autofac*, Ninject, CastleWindsor, LightInject, DryInject ---> IoC Container
             //AOP - Autofac bize AOP imkaný sunuyor
+
             services.AddControllers();
+
             //services.AddSingleton<IProductService, ProductManager>();
             //services.AddSingleton<IProductDal, EfProductDal>();
         }
