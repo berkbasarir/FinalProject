@@ -7,6 +7,10 @@ using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
+using Core.CrossCuttingConcerns.Validation;
+using FluentValidation;
 
 namespace Business.Concrete
 {
@@ -20,17 +24,13 @@ namespace Business.Concrete
         }
 
 
-
+        [ValidationAspect(typeof(ProductValidator))]
         public IResult Add(Product product)
         {
-            //business code
-
-            if (product.ProductName.Length <2)
-            {
-                //------------magic strings----------
-                return new ErrorResult(Messages.ProductNameInvalid);
-            }
-            //business codes
+            //validation code != business code
+            //business code -> kişinin yeterliliği(kredi için findeks puanı, ehliyet için sağlık raporu)
+            //validation -> gereksinimler(2 karakter olsun, büyük küçük olsun gibi şeyler)
+            
             _productDal.Add(product);
             return new SuccessResult(Messages.ProductAdded);
         }
