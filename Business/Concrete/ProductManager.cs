@@ -59,6 +59,11 @@ namespace Business.Concrete
             return new SuccessResult(Messages.ProductAdded);
         }
 
+
+
+
+
+        [CacheAspects] //key, value
         public IDataResult<List<Product>> GetAll()
         {
             //İş kodları
