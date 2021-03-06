@@ -11,6 +11,8 @@ using Business.BusinessAspects.Autofac;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Business;
+using Core.Aspects.Autofac.Caching;
+using Core.Aspects.Autofac.Transaction;
 
 namespace Business.Concrete
 {
@@ -28,6 +30,7 @@ namespace Business.Concrete
         //claim
         [SecuredOperation("product.add, Admin")]
         [ValidationAspect(typeof(ProductValidator))]
+        [CacheRemoveAspect("IProductService.Get")]
         public IResult Add(Product product)
         {
             //validation code != business code
@@ -47,12 +50,15 @@ namespace Business.Concrete
 
         }
 
+        [CacheRemoveAspect("IProductService.Get")]
         public IResult Update(Product product)
         {
             _productDal.Update(product);
             return new SuccessResult(Messages.ProductAdded);
         }
 
+
+        [CacheRemoveAspect("IProductService.Get")]
         public IResult Delete(Product product)
         {
             _productDal.Delete(product);
@@ -63,7 +69,7 @@ namespace Business.Concrete
 
 
 
-        [CacheAspects] //key, value
+        [CacheAspect] //key, value
         public IDataResult<List<Product>> GetAll()
         {
             //İş kodları
@@ -81,6 +87,8 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Product>>(_productDal.GetAll(p => p.CategoryId == id));
         }
 
+
+        [CacheAspect]
         public IDataResult<Product> GetById(int productId)
         {
             return new SuccessDataResult<Product>(_productDal.Get(p => p.ProductId == productId));
@@ -135,5 +143,12 @@ namespace Business.Concrete
             return new SuccessResult();
         }
 
+        [TransactionScopeAspect]
+        public IResult AddTransactionalTest(Product product)
+        {
+            _productDal.Update(product);
+            _productDal.Add(product);
+            return new SuccessResult(Messages.ProductUpdated);
+        }
     }
 }

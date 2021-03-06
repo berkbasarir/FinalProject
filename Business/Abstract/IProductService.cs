@@ -19,5 +19,7 @@ namespace Business.Abstract
         IDataResult<List<Product>> GetByUnitPrice(decimal min, decimal max); //fiyata göre getir min - max
         IDataResult<List<ProductDetailDto>> GetProductDetails();
 
+        IResult AddTransactionalTest(Product product);
+
     }
 }
