@@ -7,15 +7,10 @@ using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Business.BusinessAspects.Autofac;
-using Business.CCS;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
-using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Business;
-using DataAccess.Concrete.EntityFramework;
-using FluentValidation;
 
 namespace Business.Concrete
 {
